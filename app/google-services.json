@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "3188908838",
+    "project_id": "lucerapp-80f91",
+    "storage_bucket": "lucerapp-80f91.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:3188908838:android:5336c1be56c780db7717e7",
+        "android_client_info": {
+          "package_name": "com.luftce.lucerapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "3188908838-v19dj7rbb23jfjrklehu0aq7e61kvmir.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCHdKXRh5T6n5Md5llp_lyhXU7SCvkSYNU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "3188908838-v19dj7rbb23jfjrklehu0aq7e61kvmir.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
