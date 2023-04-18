@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -35,26 +36,30 @@ public class MainActivity extends AppCompatActivity {
       //Falta el registro y login
     }
 
-    public void loginToFirebase(){
+    public void loginToFirebase(View view){
         EditText userInput = findViewById(R.id.userInput);
         EditText passwordInput = findViewById(R.id.passwordInput);
-        String email = userInput.getText().toString();
-        String password = passwordInput.getText().toString();
+        String email = userInput.getText().toString().trim();
+        String password = passwordInput.getText().toString().trim();
 
 
-        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>(){
-            @Override
-            public void onComplete(@NotNull Task<AuthResult> task){
-                if (task.isSuccessful()){
-                    Log.d(TAG, "signInWithEmail:success");
-                    FirebaseUser user = mAuth.getCurrentUser();
+        if(!email.isEmpty() && !password.isEmpty()) {
+            mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NotNull Task<AuthResult> task) {
+                    if (task.isSuccessful()) {
+                        Log.d(TAG, "signInWithEmail:success");
+                        FirebaseUser user = mAuth.getCurrentUser();
+                    } else {
+                        Log.w(TAG, "signInWithEmail:failure", task.getException());
+                        Toast.makeText(MainActivity.this, "Authentication failed", Toast.LENGTH_LONG).show();
+                    }
                 }
-                else {
-                    Log.w(TAG, "signInWithEmail:failure", task.getException());
-                    Toast.makeText(MainActivity.this, "Authentication failed", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
+            });
+        }
+        else{
+            Toast.makeText(MainActivity.this, "Por favor, introduce usuario y contraseña", Toast.LENGTH_LONG).show();
+        }
     }
 
 }
