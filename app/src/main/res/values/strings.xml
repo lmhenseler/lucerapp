@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">Lucerapp</string>
+    <string name="hint_correo">Correo eléctronico</string>
+    <string name="hint_contrasenia">Contraseña</string>
+    <string name="hint_repetir_contrasenia">Repetir Contraseña</string>
+    <string name="registrarseButton">Registrarse</string>
+    <string name="registroText">Registro</string>
+    <string name="bienvenidoText">Bienvenido</string>
+    <string name="entrarButton">Entrar</string>
+    <string name="passwordHint">Password</string>
+    <string name="userHint">User</string>
+    <string name="ImageDesc">logo</string>
+    <string name="noRegistradoText">¿Aún no estás registrado?</string>
+    <string name="registrateButton">Regístrate Aquí</string>
 </resources>
