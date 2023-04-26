@@ -1,6 +1,8 @@
 package com.luftce.lucerapp.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.widget.TextView;
@@ -8,7 +10,9 @@ import android.widget.Toast;
 
 import com.luftce.lucerapp.R;
 import com.luftce.lucerapp.models.Api;
+import com.luftce.lucerapp.models.formaters.ListAdapter;
 import com.luftce.lucerapp.models.Precio;
+import com.luftce.lucerapp.models.formaters.OrdenaPrecios;
 
 import java.util.List;
 
@@ -22,7 +26,7 @@ public class HubActivity extends AppCompatActivity {
 
     private TextView miTextView;
     private Retrofit retrofit;
-
+    List<Precio> listaPrecios;
     private Api myApi;
 
     @Override
@@ -32,8 +36,6 @@ public class HubActivity extends AppCompatActivity {
 
         retrofit = new Retrofit.Builder().baseUrl("https://api.preciodelaluz.org/").
         addConverterFactory(GsonConverterFactory.create()).build();
-
-        miTextView = (TextView) findViewById(R.id.textPrueba);
 
         myApi = retrofit.create(Api.class);
 
@@ -46,13 +48,8 @@ public class HubActivity extends AppCompatActivity {
         call.enqueue(new Callback<List<Precio>>() {
             @Override
             public void onResponse(Call<List<Precio>> call, Response<List<Precio>> response) {
-                List<Precio> listaPrecios = response.body();
-                String text = "";
-                for(Precio p : listaPrecios){
-                    text += p.getDate()+p.getHour()+p.getMarket()+p.getPrice().toString() + "\n";
-                }
-                miTextView.setText(text);
-                Toast.makeText(HubActivity.this, text, Toast.LENGTH_SHORT).show();
+
+                init(response);
             }
 
             @Override
@@ -61,4 +58,17 @@ public class HubActivity extends AppCompatActivity {
             }
         });
     }
+
+    public void init(Response<List<Precio>> response){
+        listaPrecios = OrdenaPrecios.ordenarPrecios(response.body());
+
+        ListAdapter listAdapter = new ListAdapter(listaPrecios, HubActivity.this);
+        RecyclerView recyclerView = findViewById(R.id.listRV);
+
+
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(HubActivity.this));
+        recyclerView.setAdapter(listAdapter);
+    }
+
 }
