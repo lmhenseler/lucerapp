@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <Button
+        android:id="@+id/lavadoraButton"
+        android:layout_width="88dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="3dp"
+        android:text="@string/lavadora"
+        android:textSize="8sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/lavaplatosButton"
+        app:layout_constraintHorizontal_bias="0.592"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.161"
+        tools:ignore="SmallSp" />
+
+    <TimePicker
+        android:id="@+id/horaFInPicker"
+        android:layout_width="250dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="4dp"
+        android:timePickerMode="spinner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.118"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/horaFinText" />
+
+    <TextView
+        android:id="@+id/estimacionText"
+        android:layout_width="109dp"
+        android:layout_height="36dp"
+        android:layout_marginBottom="18dp"
+        android:text="@string/textview"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf="@+id/calcularButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.082"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/horaFInPicker"
+        app:layout_constraintVertical_bias="0.818"
+        tools:ignore="TextSizeCheck" />
+
+    <TextView
+        android:id="@+id/horaFinText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="264dp"
+        android:text="@string/hora_de_fin"
+        android:textColor="#000000"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.065"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/horaInicioPicker"
+        app:layout_constraintVertical_bias="0.2" />
+
+    <TimePicker
+
+        android:id="@+id/horaInicioPicker"
+        android:layout_width="250dp"
+        android:layout_height="150dp"
+        android:timePickerMode="spinner"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.118"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.373" />
+
+    <TextView
+        android:id="@+id/horaInicioText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/hora_de_inicio"
+        android:textColor="#000000"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toTopOf="@+id/horaInicioPicker"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.059"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lavadoraButton"
+        app:layout_constraintVertical_bias="0.756" />
+
+    <Button
+        android:id="@+id/lavaplatosButton"
+        android:layout_width="88dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginEnd="3dp"
+        android:text="@string/lavaplatos"
+        android:textAlignment="center"
+        android:textSize="8sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/vitroButton"
+        app:layout_constraintStart_toEndOf="@+id/lavadoraButton"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.161"
+        tools:ignore="SmallSp" />
+
+    <Button
+        android:id="@+id/aniadirButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/aniadir_al_plan"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.76"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/horaFInPicker"
+        app:layout_constraintVertical_bias="0.69" />
+
+    <Button
+        android:id="@+id/calcularButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="13dp"
+        android:text="@string/calcular"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/aniadirButton"
+        app:layout_constraintHorizontal_bias="0.782"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/horaFInPicker"
+        app:layout_constraintVertical_bias="0.654" />
+
+    <Button
+        android:id="@+id/hornoButton"
+
+        android:layout_width="88dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/horno"
+        android:textSize="8sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/vitroButton"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.162"
+        tools:ignore="SmallSp" />
+
+    <TextView
+        android:id="@+id/EDText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/electrodomestico"
+        android:textColor="#000000"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toTopOf="@+id/lavadoraButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.064"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.911" />
+
+    <Button
+        android:id="@+id/vitroButton"
+        android:layout_width="88dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginEnd="3dp"
+        android:text="@string/vitro"
+        android:textSize="8sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/hornoButton"
+        app:layout_constraintStart_toEndOf="@+id/lavaplatosButton"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.161"
+        tools:ignore="SmallSp" />
+
+    <TextView
+        android:id="@+id/calculadoraText"
+        android:layout_width="0dp"
+        android:layout_height="53dp"
+        android:background="#6200ED"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="@string/calculadora"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:typeface="sans"
+        app:layout_constraintBottom_toTopOf="@+id/EDText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
