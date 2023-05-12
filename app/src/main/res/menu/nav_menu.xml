@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn = "navigation_view">
+
+    <group
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/light"
+            android:icon="@drawable/light"
+            android:title="Precios de la luz"/>
+        <item
+            android:id="@+id/calculator"
+            android:icon="@drawable/calculator"
+            android:title="Calculadora de precio"/>
+        <item
+            android:id="@+id/social"
+            android:icon="@drawable/social"
+            android:title="Otros usuarios"/>
+
+    </group>
+    <item
+        android:title="">
+        <menu>
+            <item
+                android:id="@+id/nav_logout"
+                android:icon="@drawable/logout"
+                android:title="Logout"/>
+        </menu>
+    </item>
+</menu>
