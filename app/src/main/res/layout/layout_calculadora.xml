@@ -180,7 +180,7 @@
         android:id="@+id/calculadoraText"
         android:layout_width="0dp"
         android:layout_height="53dp"
-        android:background="#6200ED"
+        android:background="@color/gray"
         android:gravity="center_horizontal|center_vertical"
         android:text="@string/calculadora"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
