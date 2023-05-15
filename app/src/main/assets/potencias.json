@@ -1,0 +1,18 @@
+[
+  {
+    "edom": "vitro",
+    "potencia": 0.3
+  },
+  {
+    "edom": "horno",
+    "potencia": 1.7
+  },
+  {
+    "edom": "lavaplatos",
+    "potencia": 1.85
+  },
+  {
+    "edom": "lavadora",
+    "potencia": 1.85
+  }
+]

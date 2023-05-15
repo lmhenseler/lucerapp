@@ -19,4 +19,13 @@ public class OrdenaPrecios {
 
         return list;
     }
+
+    public static Precio encontrarPrecio(List<Precio> list, int precio){
+        for(Precio p: list){
+            if(p.getHour().substring(0,2).equals(String.valueOf(precio)))   {
+                return p;
+            }
+        }
+        return null;
+    }
 }

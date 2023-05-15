@@ -8,12 +8,16 @@ import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.luftce.lucerapp.R;
 import com.luftce.lucerapp.models.Api;
 import com.luftce.lucerapp.models.formaters.ListAdapter;
 import com.luftce.lucerapp.models.Precio;
 import com.luftce.lucerapp.models.formaters.OrdenaPrecios;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 import java.util.List;
 
 import retrofit2.Call;
@@ -48,8 +52,13 @@ public class HubActivity extends AppCompatActivity {
         call.enqueue(new Callback<List<Precio>>() {
             @Override
             public void onResponse(Call<List<Precio>> call, Response<List<Precio>> response) {
-
+                Gson gson = new Gson();
                 init(response);
+                try (Writer writer = new FileWriter("persona.json")) {
+                    gson.toJson(response.body(), writer);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override
