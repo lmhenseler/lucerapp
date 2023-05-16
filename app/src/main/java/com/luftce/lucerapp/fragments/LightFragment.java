@@ -1,5 +1,8 @@
 package com.luftce.lucerapp.fragments;
 
+import android.content.Context;
+import android.content.res.AssetFileDescriptor;
+import android.content.res.AssetManager;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -9,15 +12,22 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.luftce.lucerapp.R;
 import com.luftce.lucerapp.models.Api;
 import com.luftce.lucerapp.models.Precio;
 import com.luftce.lucerapp.models.formaters.ListAdapter;
 import com.luftce.lucerapp.models.formaters.OrdenaPrecios;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -32,11 +42,16 @@ public class LightFragment extends Fragment {
     private TextView miTextView;
 
     private Retrofit retrofit;
-    List<Precio> listaPrecios;
+    List<Precio> listaPrecios, listaAux;
     private Api myApi;
+    private Gson gson;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+
+
         View view = inflater.inflate(R.layout.fragment_light, container, false);
 
         retrofit = new Retrofit.Builder().baseUrl("https://api.preciodelaluz.org/").
@@ -44,7 +59,19 @@ public class LightFragment extends Fragment {
 
         myApi = retrofit.create(Api.class);
 
+
+
+
+
         getPrecios(view);
+
+
+
+
+
+
+
+
 
         return view;
     }
@@ -66,7 +93,42 @@ public class LightFragment extends Fragment {
     }
 
     public void init(Response<List<Precio>> response, View view){
+
+        gson = new Gson();
+
+        listaPrecios =response.body();
+
+        String json = gson.toJson(listaPrecios.get(23));
+
+
+        String fileName = "mascaro.json";
+        FileOutputStream fileOutputStream;
+        try {
+            fileOutputStream = requireContext().openFileOutput(fileName, Context.MODE_PRIVATE);
+            fileOutputStream.write(json.getBytes());
+            fileOutputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         listaPrecios = OrdenaPrecios.ordenarPrecios(response.body());
+
+
+
+        json = gson.toJson(listaPrecios);
+
+
+
+
+        fileName = "precios.json";
+
+        try {
+            fileOutputStream = requireContext().openFileOutput(fileName, Context.MODE_PRIVATE);
+            fileOutputStream.write(json.getBytes());
+            fileOutputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         ListAdapter listAdapter = new ListAdapter(listaPrecios, getActivity());
         RecyclerView recyclerView = view.findViewById(R.id.listRV);

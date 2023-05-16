@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             });
-            Intent intent = new Intent(this, HubActivity.class);
+            Intent intent = new Intent(this, DrawerActivity.class);
             startActivity(intent);
         }
         else{
