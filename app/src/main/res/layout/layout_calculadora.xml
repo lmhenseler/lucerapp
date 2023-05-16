@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -27,42 +28,42 @@
         android:id="@+id/horaFInPicker"
         android:layout_width="250dp"
         android:layout_height="150dp"
-        android:layout_marginTop="4dp"
         android:timePickerMode="spinner"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.118"
+        app:layout_constraintHorizontal_bias="0.136"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/horaFinText" />
-
-    <TextView
-        android:id="@+id/estimacionText"
-        android:layout_width="109dp"
-        android:layout_height="36dp"
-        android:layout_marginBottom="18dp"
-        android:text="Precio"
-        android:textSize="25sp"
-        app:layout_constraintBottom_toTopOf="@+id/calcularButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.082"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/horaFInPicker"
-        app:layout_constraintVertical_bias="0.818"
-        tools:ignore="TextSizeCheck" />
+        app:layout_constraintTop_toBottomOf="@+id/horaInicioPicker"
+        app:layout_constraintVertical_bias="0.096" />
 
     <TextView
         android:id="@+id/horaFinText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="264dp"
         android:text="@string/hora_de_fin"
         android:textColor="#000000"
         android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/horaFInPicker"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.065"
+        app:layout_constraintHorizontal_bias="0.082"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/horaInicioPicker"
-        app:layout_constraintVertical_bias="0.2" />
+        app:layout_constraintVertical_bias="0.562" />
+
+    <TextView
+        android:id="@+id/horaInicioText"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_marginTop="4dp"
+        android:text="@string/hora_de_inicio"
+        android:textColor="#000000"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toTopOf="@+id/horaInicioPicker"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.084"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lavadoraButton"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TimePicker
 
@@ -75,21 +76,7 @@
         app:layout_constraintHorizontal_bias="0.136"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.373" />
-
-    <TextView
-        android:id="@+id/horaInicioText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/hora_de_inicio"
-        android:textColor="#000000"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toTopOf="@+id/horaInicioPicker"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.059"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lavadoraButton"
-        app:layout_constraintVertical_bias="0.756" />
+        app:layout_constraintVertical_bias="0.351" />
 
     <Button
         android:id="@+id/lavaplatosButton"
@@ -110,29 +97,30 @@
 
     <Button
         android:id="@+id/aniadirButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/aniadir_al_plan"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:text="Postear"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.76"
+        app:layout_constraintHorizontal_bias="0.808"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/horaFInPicker"
-        app:layout_constraintVertical_bias="0.69" />
+        app:layout_constraintVertical_bias="0.785" />
 
     <Button
         android:id="@+id/calcularButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="13dp"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
         android:onClick="calcularPrecio"
         android:text="@string/calcular"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/aniadirButton"
-        app:layout_constraintHorizontal_bias="0.782"
+        app:layout_constraintHorizontal_bias="0.819"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/horaFInPicker"
-        app:layout_constraintVertical_bias="0.654" />
+        app:layout_constraintVertical_bias="0.787" />
 
     <Button
         android:id="@+id/hornoButton"
@@ -160,10 +148,10 @@
         android:textSize="15sp"
         app:layout_constraintBottom_toTopOf="@+id/lavadoraButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.064"
+        app:layout_constraintHorizontal_bias="0.091"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.911" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/vitroButton"
@@ -198,5 +186,59 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/estimacionText"
+        android:layout_width="100dp"
+        android:layout_height="35dp"
+        android:layout_marginBottom="18dp"
+        android:text="Precio"
+        android:textColor="@color/violet"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf="@+id/calcularButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.09"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/horaFInPicker"
+        app:layout_constraintVertical_bias="0.84"
+        tools:ignore="TextSizeCheck" />
+
+    <TextView
+        android:id="@+id/AhorroTextView"
+        android:layout_width="100dp"
+        android:layout_height="35dp"
+        android:text="Ahorro"
+        android:textColor="@color/violet"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/calcularButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.578"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/horaFInPicker"
+        app:layout_constraintVertical_bias="0.666" />
+
+    <TextView
+        android:id="@+id/ahorroText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Has ahorrado:"
+        app:layout_constraintBottom_toTopOf="@+id/AhorroTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.266"
+        app:layout_constraintStart_toEndOf="@+id/estimacionText"
+        app:layout_constraintTop_toBottomOf="@+id/horaFInPicker"
+        app:layout_constraintVertical_bias="0.948" />
+
+    <TextView
+        android:id="@+id/costeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Coste: "
+        app:layout_constraintBottom_toTopOf="@+id/estimacionText"
+        app:layout_constraintEnd_toStartOf="@+id/ahorroText"
+        app:layout_constraintHorizontal_bias="0.204"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/horaFInPicker"
+        app:layout_constraintVertical_bias="0.974" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

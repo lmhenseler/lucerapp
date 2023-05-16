@@ -36,7 +36,7 @@ public class HubActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_hub);
+        setContentView(R.layout.fragment_light);
 
         retrofit = new Retrofit.Builder().baseUrl("https://api.preciodelaluz.org/").
         addConverterFactory(GsonConverterFactory.create()).build();
