@@ -6,10 +6,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.luftce.lucerapp.R;
 import com.luftce.lucerapp.fragments.CalculatorFragment;
 import com.luftce.lucerapp.fragments.LightFragment;
@@ -50,6 +53,7 @@ public class DrawerActivity extends AppCompatActivity implements NavigationView.
                 break;
             case R.id.nav_logout:
                 Toast.makeText(this, "Logout!", Toast.LENGTH_SHORT).show();
+                logOut();
                 break;
         }
         drawerLayout.closeDrawer(GravityCompat.START);
@@ -63,4 +67,13 @@ public class DrawerActivity extends AppCompatActivity implements NavigationView.
             super.onBackPressed();
         }
     }
+
+    public void logOut(){
+        FirebaseAuth.getInstance().signOut();
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
 }
+
+
