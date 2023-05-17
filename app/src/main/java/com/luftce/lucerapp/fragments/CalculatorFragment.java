@@ -1,6 +1,8 @@
 package com.luftce.lucerapp.fragments;
 
+import android.annotation.SuppressLint;
 import android.content.res.AssetManager;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,9 +17,13 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.slider.BaseOnSliderTouchListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.luftce.lucerapp.R;
+import com.luftce.lucerapp.activities.MainActivity;
 import com.luftce.lucerapp.models.Api;
 import com.luftce.lucerapp.models.Edom;
 import com.luftce.lucerapp.models.Precio;
@@ -52,7 +58,10 @@ public class CalculatorFragment extends Fragment {
     private Precio masCaro;
     private Edom seleccionado;
     private Button botonSeleccionado;
-    private TextView precioCalculo;
+    private TextView precioCalculo, precioAhorro;
+    private float coste, ahorro;
+    private String inicioCalculo, finCalculo, usuario;
+
 
     @Nullable
     @Override
@@ -60,7 +69,7 @@ public class CalculatorFragment extends Fragment {
         View view = inflater.inflate(R.layout.layout_calculadora, container, false);
 
         precioCalculo = view.findViewById(R.id.estimacionText);
-
+        precioAhorro = view.findViewById(R.id.AhorroTextView);
 
         AssetManager assetManager = requireContext().getAssets();
 
@@ -83,7 +92,7 @@ public class CalculatorFragment extends Fragment {
             botonSeleccionado = view.findViewById(R.id.lavadoraButton);
 
             botonSeleccionado.setClickable(false);
-            botonSeleccionado.setAlpha(0.7f);
+            botonSeleccionado.setAlpha(0.5f);
 
             FileInputStream fileInputStream;
             try {
@@ -100,8 +109,28 @@ public class CalculatorFragment extends Fragment {
                     e.printStackTrace();
                 }
                 Type listType1 = new TypeToken<List<Precio>>() {}.getType();
+
                 precios = gson.fromJson(jsonString.toString(), listType1);
 
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            try {
+                fileInputStream = requireContext().openFileInput("usuario.json");
+                BufferedReader reader1 = new BufferedReader(new InputStreamReader(fileInputStream));
+                StringBuilder jsonString = new StringBuilder();
+                String line;
+                try {
+                    while ((line = reader1.readLine()) != null) {
+                        jsonString.append(line);
+                    }
+                    reader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                Type listType1 = new TypeToken<String>() {}.getType();
+                usuario = gson.fromJson(jsonString.toString(), listType1);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
@@ -120,7 +149,6 @@ public class CalculatorFragment extends Fragment {
                 }
                 Type listType1 = new TypeToken<Precio>() {}.getType();
                 masCaro = gson.fromJson(jsonString.toString(), listType1);
-
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
@@ -141,6 +169,7 @@ public class CalculatorFragment extends Fragment {
         Button lavaPlatosButton = view.findViewById(R.id.lavaplatosButton);
         Button vitroButton = view.findViewById(R.id.vitroButton);
         Button hornoButton = view.findViewById(R.id.hornoButton);
+        Button aniadirButton = view.findViewById(R.id.aniadirButton);
 
         calcularButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -174,8 +203,14 @@ public class CalculatorFragment extends Fragment {
                 seleccionarEdom("horno", hornoButton);
             }
         });
+        aniadirButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){ postearEnDatabase(); }
+        });
+
     }
 
+    @SuppressLint("SetTextI18n")
     private void calcularPrecio() {
         TimePicker horaInicio = requireView().findViewById(R.id.horaInicioPicker);
         TimePicker horaFinal = requireView().findViewById(R.id.horaFInPicker);
@@ -187,26 +222,50 @@ public class CalculatorFragment extends Fragment {
         if (hFin > hIni) {
             precio = OrdenaPrecios.encontrarPrecio(precios, hIni);
             total += precio.getPrice()/1000 * seleccionado.getPotencia() * (60-mIni)/60;
+            ahorro = (float) (masCaro.getPrice()/1000 * seleccionado.getPotencia() * (60-mIni)/60);
             for (int i = hIni + 1 ; i<hFin; i++){
                 precio = OrdenaPrecios.encontrarPrecio(precios, i);
                 total += precio.getPrice()/1000 * seleccionado.getPotencia();
+                ahorro += masCaro.getPrice()/1000 * seleccionado.getPotencia();
             }
             precio = OrdenaPrecios.encontrarPrecio(precios, hFin);
             total += precio.getPrice()/1000 * seleccionado.getPotencia() * (mFin)/60;
-            precioCalculo.setText(String.valueOf(total));
+            ahorro += masCaro.getPrice()/1000 * seleccionado.getPotencia() * (mFin)/60;
+            ahorro = ahorro-total;
+
+            String calculoString = String.valueOf(total).substring(0,4) + "€";
+            precioCalculo.setText(calculoString);
+            String ahorroString = String.valueOf(ahorro).substring(0,4) + "€";
+            precioAhorro.setText(ahorroString);
+            precioAhorro.setTextColor(Color.GREEN);
+
+            coste = total;
+            inicioCalculo = String.valueOf(hIni) + ":" + String.valueOf(mIni) ;
+            finCalculo = String.valueOf(hFin) + ":" + String.valueOf(mFin) ;
+
+
         } else if (hIni == hFin && mFin > mIni){
             precio = OrdenaPrecios.encontrarPrecio(precios, hIni);
             total += precio.getPrice()/1000 * seleccionado.getPotencia() * (mFin-mIni)/60;
-            precioCalculo.setText(String.valueOf(total));
+            ahorro = (float) (masCaro.getPrice()/1000 * seleccionado.getPotencia() * (mFin-mIni)/60);
+            ahorro = ahorro - total;
+
+            String calculoString = String.valueOf(total).substring(0,4) + "€";
+            precioCalculo.setText(calculoString);
+            String ahorroString = String.valueOf(ahorro).substring(0,4) + "€";
+            precioAhorro.setTextColor(Color.GREEN);
+
+            coste = total;
         } else {
             Toast.makeText(requireContext(), "Las horas no son válidas", Toast.LENGTH_SHORT).show();
             precioCalculo.setText("Precio");
+            coste = 0;
+            ahorro= 0;
         }
     }
 
     private void seleccionarEdom(String nombre, Button button) {
         seleccionado = buscarEdom(nombre);
-        precioCalculo.setText(seleccionado.getEdom());
         cambiarSeleccionado(button);
     }
 
@@ -225,29 +284,25 @@ public class CalculatorFragment extends Fragment {
         botonSeleccionado.setAlpha(1);
         botonSeleccionado = button;
         botonSeleccionado.setClickable(false);
-        botonSeleccionado.setAlpha(0.7f);
+        botonSeleccionado.setAlpha(0.5f);
     }
 
-    private List<Precio> codigoPrueba() {
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("https://api.preciodelaluz.org/").
-                addConverterFactory(GsonConverterFactory.create()).build();
+    private void postearEnDatabase(){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference calculationsRef = database.getReference("calculations");
 
-        Api myApi = retrofit.create(Api.class);
 
-        final List<Precio> ret = new ArrayList<>();
-        Call<List<Precio>> call = myApi.getPrecios();
-        call.enqueue(new Callback<List<Precio>>() {
-            @Override
-            public void onResponse(Call<List<Precio>> call, Response<List<Precio>> response) {
-                ret.addAll(response.body());
-            }
 
-            @Override
-            public void onFailure(Call<List<Precio>> call, Throwable t) {
-                Toast.makeText(requireContext(), "No ha funcionado", Toast.LENGTH_SHORT).show();
-            }
-        });
-        //masCaro = ret.get(1);
-        //precioCalculo.setText(masCaro.getPrice().toString());
-        return OrdenaPrecios.ordenarPrecios(ret);
-    }}
+        String calculationId = calculationsRef.child(usuario).push().getKey();
+        DatabaseReference calculationNodeRef = calculationsRef.child(usuario).child(calculationId);
+
+        calculationNodeRef.child("startHour").setValue(inicioCalculo);
+        calculationNodeRef.child("finishHour").setValue(finCalculo);
+        calculationNodeRef.child("edom").setValue(seleccionado.getEdom());
+        calculationNodeRef.child("price").setValue(coste);
+        calculationNodeRef.child("saving").setValue(ahorro);
+
+
+    }
+
+}

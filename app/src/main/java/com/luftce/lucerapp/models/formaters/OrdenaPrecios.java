@@ -22,7 +22,8 @@ public class OrdenaPrecios {
 
     public static Precio encontrarPrecio(List<Precio> list, int precio){
         for(Precio p: list){
-            if(p.getHour().substring(0,2).equals(String.valueOf(precio)))   {
+
+            if(Integer.parseInt(p.getHour().substring(0,2)) == precio)   {
                 return p;
             }
         }

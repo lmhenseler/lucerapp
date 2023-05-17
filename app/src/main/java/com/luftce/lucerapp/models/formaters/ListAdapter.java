@@ -59,10 +59,10 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 
             Double p = item.getPrice()/1000;
 
-            if (p<0.17){
+            if (p<0.099){
                 rectangleImage.setBackgroundColor(Color.GREEN);
             }
-            else if(p<0.22){
+            else if(p<0.1215){
                 rectangleImage.setBackgroundColor(Color.YELLOW);
             }
             else{
@@ -70,7 +70,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 
             }
             DecimalFormat df = new DecimalFormat("#.#####");
-            price.setText(df.format(p) + " Kwh");
+            price.setText(df.format(p) + "€/Kwh");
             hour.setText(item.getHour());
         }
     }

@@ -59,19 +59,7 @@ public class LightFragment extends Fragment {
 
         myApi = retrofit.create(Api.class);
 
-
-
-
-
         getPrecios(view);
-
-
-
-
-
-
-
-
 
         return view;
     }
@@ -100,7 +88,6 @@ public class LightFragment extends Fragment {
 
         String json = gson.toJson(listaPrecios.get(23));
 
-
         String fileName = "mascaro.json";
         FileOutputStream fileOutputStream;
         try {
@@ -113,12 +100,7 @@ public class LightFragment extends Fragment {
 
         listaPrecios = OrdenaPrecios.ordenarPrecios(response.body());
 
-
-
         json = gson.toJson(listaPrecios);
-
-
-
 
         fileName = "precios.json";
 

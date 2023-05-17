@@ -4,6 +4,7 @@ import static android.content.ContentValues.TAG;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,9 +17,13 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.gson.Gson;
 import com.luftce.lucerapp.R;
 
 import org.jetbrains.annotations.NotNull;
+
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -49,6 +54,21 @@ public class MainActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         Log.d(TAG, "signInWithEmail:success");
                         FirebaseUser user = mAuth.getCurrentUser();
+
+                        Gson gson = new Gson();
+                        String username = email.substring(0, email.indexOf("@"));
+                        String json = gson.toJson(username.replaceAll("[^a-zA-Z]", ""));
+                        String fileName = "usuario.json";
+                        FileOutputStream fileOutputStream;
+                        try {
+                            fileOutputStream = getApplicationContext().openFileOutput(fileName, Context.MODE_PRIVATE);
+                            fileOutputStream.write(json.getBytes());
+                            fileOutputStream.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+
                         Intent intent = new Intent(MainActivity.this, DrawerActivity.class);
                         startActivity(intent);
                     } else {
