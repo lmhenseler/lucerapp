@@ -49,14 +49,15 @@ public class MainActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         Log.d(TAG, "signInWithEmail:success");
                         FirebaseUser user = mAuth.getCurrentUser();
+                        Intent intent = new Intent(MainActivity.this, DrawerActivity.class);
+                        startActivity(intent);
                     } else {
                         Log.w(TAG, "signInWithEmail:failure", task.getException());
                         Toast.makeText(MainActivity.this, "Authentication failed", Toast.LENGTH_LONG).show();
                     }
                 }
             });
-            Intent intent = new Intent(this, DrawerActivity.class);
-            startActivity(intent);
+
         }
         else{
             Toast.makeText(MainActivity.this, "Por favor, introduce usuario y contraseña", Toast.LENGTH_LONG).show();
