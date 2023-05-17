@@ -301,6 +301,7 @@ public class CalculatorFragment extends Fragment {
         calculationNodeRef.child("edom").setValue(seleccionado.getEdom());
         calculationNodeRef.child("price").setValue(coste);
         calculationNodeRef.child("saving").setValue(ahorro);
+        Toast.makeText(getContext(), "Calculo guardado en la base de datos", Toast.LENGTH_SHORT).show();
 
 
     }
